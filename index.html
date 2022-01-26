@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liga de Debate Esade - Clock</title>
+    <link rel="stylesheet" href="./output.css">
+    <link rel="icon" type="image/png" href="./assets/favicon.png">
+</head>
+
+<body>
+
+    <img src="./assets/logo_liga.png" alt="" class="w-64">
+
+    <div class="flex flex-row items-center space-x-5 mb-5" id="inputsBlock">
+        <div>
+            <label for="custom-input-number" class="text-slate-300 text-sm font-semibold">Hours</label>
+            <div class="flex flex-row h-10 w-full rounded-lg w-32 relative bg-transparent mt-1">
+                <button data-action="decrement"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                    <span class="m-auto text-2xl font-thin">−</span>
+                </button>
+                <input type="number" id="hoursInput"
+                    class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                    name="custom-input-number" value="0"></input>
+                <button data-action="increment"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                    <span class="m-auto text-2xl font-thin">+</span>
+                </button>
+            </div>
+        </div>
+        <div>
+            <label for="custom-input-number" class="text-slate-300 text-sm font-semibold">Minutes</label>
+            <div class="flex flex-row h-10 w-full rounded-lg w-32 relative bg-transparent mt-1">
+                <button data-action="decrement"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                    <span class="m-auto text-2xl font-thin">−</span>
+                </button>
+                <input type="number" id="minsInput"
+                    class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                    name="custom-input-number" value="0"></input>
+                <button data-action="increment"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                    <span class="m-auto text-2xl font-thin">+</span>
+                </button>
+            </div>
+        </div>
+        <div>
+            <label for="custom-input-number" class="text-slate-300 text-sm font-semibold">Seconds</label>
+            <div class="flex flex-row h-10 w-full rounded-lg w-32 relative bg-transparent mt-1">
+                <button data-action="decrement"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none">
+                    <span class="m-auto text-2xl font-thin">−</span>
+                </button>
+                <input type="number" id="secsInput"
+                    class="outline-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                    name="custom-input-number" value="0"></input>
+                <button data-action="increment"
+                    class="bg-gray-300 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer">
+                    <span class="m-auto text-2xl font-thin">+</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center flex-col">
+        <div id="containerClock" style="padding: 40px; display: none;">
+            <div id="hours" class="pl-5"></div>
+            <span class="pb-3 px-4">:</span>
+            <div id="mins"></div>
+            <span class="pb-3 px-4">:</span>
+            <div id="secs" class="pr-5"></div>
+        </div>
+        <button onclick="start()" id="buttonStart"
+            class="mt-5 px-10 py-3 bg-yellow-500 border border-yellow-700 rounded-full font-semibold">SET</button>
+    </div>
+
+    <div class="flex flex-row pt-5 justify-center items-center">
+        <img src="./assets/logo_dale_carnegie.png" alt="" class="w-32">
+        <img src="./assets/logo_mars.png" alt="" class="w-32">
+        <img src="./assets/logo_pilot.png" alt="" class="w-32">
+        <img src="./assets/logo_oxford.png" alt="" class="w-32 h-auto">
+    </div>
+    <div class="flex flex-row pt-5 justify-center items-center">
+        <img src="./assets/logo_adam_foods.png" alt="" class="w-32">
+        <img src="./assets/logo_flowe.jfif" alt="" class="w-32">
+        <img src="./assets/logo_opu.png" alt="" class="w-32">
+        <img src="./assets/logo_el_charro.png" alt="" class="w-32">
+        <img src="./assets/logo_by_lu.png" alt="" class="w-32 rounded-lg">
+    </div>
+
+    <script type="text/javascript">
+        /* Number inputs */
+        function decrement(e) {
+            const btn = e.target.parentNode.parentElement.querySelector(
+                'button[data-action="decrement"]'
+            );
+            const target = btn.nextElementSibling;
+            let value = Number(target.value);
+            value--;
+            target.value = value;
+        }
+
+        function increment(e) {
+            const btn = e.target.parentNode.parentElement.querySelector(
+                'button[data-action="decrement"]'
+            );
+            const target = btn.nextElementSibling;
+            let value = Number(target.value);
+            value++;
+            target.value = value;
+        }
+
+        const decrementButtons = document.querySelectorAll(
+            `button[data-action="decrement"]`
+        );
+
+        const incrementButtons = document.querySelectorAll(
+            `button[data-action="increment"]`
+        );
+
+        decrementButtons.forEach(btn => {
+            btn.addEventListener("click", decrement);
+        });
+
+        incrementButtons.forEach(btn => {
+            btn.addEventListener("click", increment);
+        });
+
+        /* End number inputs */
+        var totalSeconds;
+
+        const defaultClasslist = "rounded-[20px] border flex flex-row text-8xl font-semibold jutify-center items-center tracking-widest";
+        const containerClock = document.getElementById("containerClock");
+        containerClock.classList = defaultClasslist;
+
+        const inputsBlock = document.getElementById("inputsBlock");
+
+        const buttonStart = document.getElementById("buttonStart");
+
+        var running = false;
+        var firstTime = true;
+        const hours = document.getElementById("hours");
+        const mins = document.getElementById("mins");
+        const secs = document.getElementById("secs");
+
+        function setHours(content) { hours.innerHTML = content; }
+        function setMins(content) { mins.innerHTML = content; }
+        function setSecs(content) { secs.innerHTML = content; }
+
+        function setContent() {
+            if (this.totalSeconds >= 0) {
+                containerClock.classList = defaultClasslist + " bg-slate-700 border-slate-500 text-white";
+                const hours = Math.floor(this.totalSeconds / 3600);
+                const minutes = Math.floor((this.totalSeconds - hours * 3600) / 60);
+                const seconds = this.totalSeconds - hours * 3600 - minutes * 60;
+
+                setHours((hours < 10 ? '0' : '') + hours.toString());
+                setMins((minutes < 10 ? '0' : '') + minutes.toString());
+                setSecs((seconds < 10 ? '0' : '') + seconds.toString());
+            } else {
+                containerClock.classList = defaultClasslist + " bg-red-rgba border-red-500 text-red-200";
+                const hours = Math.abs(Math.ceil(this.totalSeconds / 3600));
+                const minutes = Math.abs(Math.ceil((this.totalSeconds + hours * 3600) / 60));
+                const seconds = Math.abs(this.totalSeconds + hours * 3600 + minutes * 60);
+
+                setHours('-' + (hours < 10 ? '0' : '') + hours.toString());
+                setMins((minutes < 10 ? '0' : '') + minutes.toString());
+                setSecs((seconds < 10 ? '0' : '') + seconds.toString());
+            }
+        }
+
+        function delay(time) {
+            return new Promise(resolve => setTimeout(resolve, time));
+        }
+
+        async function start() {
+            if (firstTime) {
+                totalSeconds = parseInt(document.getElementById('hoursInput').value) * 3600 + parseInt(document.getElementById('minsInput').value) * 60 + parseInt(document.getElementById('secsInput').value);
+                containerClock.style.display = "flex";
+                inputsBlock.style.display = "none";
+                buttonStart.innerHTML = "START";
+                firstTime = false;
+                setContent();
+            } else {
+                if (!running) {
+                    buttonStart.innerHTML = "STOP";
+                    running = true;
+                    await delay(1000);
+                    while (running) {
+                        totalSeconds -= 1;
+                        setContent();
+                        await delay(1000);
+                    }
+                } else {
+                    buttonStart.innerHTML = "RESUME";
+                    running = false;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

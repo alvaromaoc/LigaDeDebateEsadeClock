@@ -1,0 +1,12 @@
+{
+  "name": "tailwindpure",
+  "version": "1.0.0",
+  "description": "Tailwind in pure HTML",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Álvaro Mañoso Oca",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.0.17"
+  }
+}
