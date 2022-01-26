@@ -142,6 +142,7 @@
 
         var running = false;
         var firstTime = true;
+        var interval;
         const hours = document.getElementById("hours");
         const mins = document.getElementById("mins");
         const secs = document.getElementById("secs");
@@ -176,6 +177,11 @@
             return new Promise(resolve => setTimeout(resolve, time));
         }
 
+        function minusSecond() {
+            totalSeconds -= 1;
+            setContent();
+        }
+
         async function start() {
             if (firstTime) {
                 totalSeconds = parseInt(document.getElementById('hoursInput').value) * 3600 + parseInt(document.getElementById('minsInput').value) * 60 + parseInt(document.getElementById('secsInput').value);
@@ -188,15 +194,11 @@
                 if (!running) {
                     buttonStart.innerHTML = "STOP";
                     running = true;
-                    await delay(1000);
-                    while (running) {
-                        totalSeconds -= 1;
-                        setContent();
-                        await delay(1000);
-                    }
+                    interval = setInterval(minusSecond, 1000);
                 } else {
                     buttonStart.innerHTML = "RESUME";
                     running = false;
+                    clearInterval(interval);
                 }
             }
         }
